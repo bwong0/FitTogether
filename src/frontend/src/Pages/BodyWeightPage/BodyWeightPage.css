@@ -1,0 +1,18 @@
+.BodyWeightPage-Container {
+  margin: auto;
+  display: flex;
+  width: 100%;
+}
+
+.Create-BodyWeight-Container {
+  background-color: aquamarine;
+  opacity: 50%;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.View-BodyWeight-Container {
+  background-color: red;
+  flex: 1;
+  margin-left: 0px;
+}
