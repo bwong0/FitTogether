@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
-import "./HomePage.css";
+import "./ViewBodyWeight.css";
 import BodyWeightList from "../BodyWeight/BodyWeight";
 import BodyWeights from "../../Resources/Types/BodyWeight";
 import { getUserBodyWeightUrl } from "../../Resources/Url.js";
 import getMonthDay, {
   convert24to12,
-  getTodayDate,
   splitTimeStamp,
 } from "../../Resources/Types/DateYear";
 
-const HomePage = () => {
+const ViewBodyWeight = (props: { userId: number; date: string }) => {
   const [bodyWeights, setBodyWeights] = useState<BodyWeights[]>([]);
   const [dayAvgBodyWeight, setDayAvgBodyWeight] = useState<number>(0);
   const [isPending, setIsPending] = useState(true);
@@ -30,7 +28,7 @@ const HomePage = () => {
     console.log("Use this for fetching list");
     const abortCont = new AbortController();
 
-    fetch(getUserBodyWeightUrl(3, getTodayDate(), ""), {
+    fetch(getUserBodyWeightUrl(props.userId, props.date, ""), {
       signal: abortCont.signal,
     })
       .then((res) => {
@@ -82,4 +80,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ViewBodyWeight;
