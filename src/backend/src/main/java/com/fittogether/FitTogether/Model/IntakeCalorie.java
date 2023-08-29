@@ -25,6 +25,7 @@ public class IntakeCalorie {
     private double fats;
     @PositiveOrZero
     private double carbohydrates;
+    private String meal;
 //    private Meal meal;
     @Positive
     private double calories;

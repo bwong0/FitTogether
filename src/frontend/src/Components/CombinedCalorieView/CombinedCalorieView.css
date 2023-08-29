@@ -1,0 +1,23 @@
+.intake-exercise-container {
+  margin: auto;
+  display: flex;
+  width: 100%;
+}
+
+.intakeValues {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.intakeValues h3 {
+  color: red;
+}
+
+.exerciseValues {
+  flex: 1;
+  margin-left: 0px;
+}
+
+.exerciseValues h3 {
+  color: green;
+}

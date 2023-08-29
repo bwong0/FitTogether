@@ -9,20 +9,22 @@ import getMonthDay, {
   splitTimeStamp,
 } from "../../Resources/Types/DateYear";
 
-const ViewBodyWeight = (props: { userId: number; date: string }) => {
+const ViewBodyWeight = (props: {
+  userId: number;
+  date: string;
+  monthDate: string;
+}) => {
   const [bodyWeights, setBodyWeights] = useState<BodyWeights[]>([]);
   const [dayAvgBodyWeight, setDayAvgBodyWeight] = useState<number>(0);
   const [isPending, setIsPending] = useState(true);
   const [errorState, setErrorState] = useState(null);
 
-  const todayDate = getMonthDay();
-
-  const handleDelete = (id: number) => {
-    const newBodyWeight = bodyWeights.filter(
-      (bodyWeight) => bodyWeight.id !== id
-    );
-    setBodyWeights(newBodyWeight);
-  };
+  // const handleDelete = (id: number) => {
+  //   const newBodyWeight = bodyWeights.filter(
+  //     (bodyWeight) => bodyWeight.id !== id
+  //   );
+  //   setBodyWeights(newBodyWeight);
+  // };
 
   useEffect(() => {
     console.log("Use this for fetching list");
@@ -66,14 +68,13 @@ const ViewBodyWeight = (props: { userId: number; date: string }) => {
     return () => abortCont.abort();
   }, []);
   return (
-    <div className="HomePage">
+    <div className="ViewBodyWeight">
       {errorState && <div>{errorState}</div>}
       {isPending && <div>Is Loading...</div>}
       {bodyWeights && (
         <BodyWeightList
           bodyWeightProp={bodyWeights}
-          handleDeleteProp={handleDelete}
-          titleProp={todayDate + " - " + dayAvgBodyWeight + "lbs"}
+          titleProp={props.monthDate + " - " + dayAvgBodyWeight + "lbs"}
         />
       )}
     </div>

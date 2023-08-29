@@ -3,7 +3,6 @@ import "./BodyWeight.css";
 
 const BodyWeightList = (props: {
   bodyWeightProp: BodyWeights[];
-  handleDeleteProp: (id: number) => void;
   titleProp: string;
 }) => {
   const bodyWeights = props.bodyWeightProp;
@@ -16,9 +15,6 @@ const BodyWeightList = (props: {
             <h2> {bodyWeight.twelveHour} </h2>
             <p> {bodyWeight.bodyWeight} lbs </p>
           </div>
-          <button onClick={() => props.handleDeleteProp(bodyWeight.id)}>
-            Delete Measurement
-          </button>
         </div>
       ))}
     </div>

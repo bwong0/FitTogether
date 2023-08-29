@@ -1,0 +1,15 @@
+.CalorieTrackingPage-Container {
+  margin: auto;
+  display: flex;
+  width: 100%;
+}
+
+.Create-Calorie-Container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.View-Calorie-Container {
+  flex: 1;
+  margin-left: 0px;
+}
