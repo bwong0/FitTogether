@@ -32,7 +32,7 @@ const ViewBodyWeight = (props: { userId: number; date: string }) => {
       signal: abortCont.signal,
     })
       .then((res) => {
-        if (res.ok != true) {
+        if (res.ok !== true) {
           throw Error("Fetching Error");
         }
         return res.json();
