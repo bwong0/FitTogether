@@ -1,7 +1,9 @@
+import CreateBodyWeight from "../../Components/CreateBodyWeight/CreateBodyWeight";
+
 const ProgressPage = () => {
   return (
     <div className="ProgressPage">
-      <div className="ProgressPage-Container">hi</div>
+      <div className="ProgressPage-Container"></div>
     </div>
   );
 };
