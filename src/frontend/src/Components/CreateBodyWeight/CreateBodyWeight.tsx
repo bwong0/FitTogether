@@ -2,6 +2,10 @@ import { useState } from "react";
 import "./CreateBodyWeight.css";
 import { postUserBodyWeightUrl } from "../../Resources/Url";
 import axios from "axios";
+import {
+  handleFloatUseStateSetterFromHTMLInputElement,
+  handleIntUseStateSetterFromHTMLInputElement,
+} from "../../Resources/GlobalFunction";
 const CreateBodyWeight = () => {
   const [userId, setUserId] = useState<number | null>();
   const [bodyWeight, setBodyWeight] = useState<number | null>();
@@ -13,14 +17,14 @@ const CreateBodyWeight = () => {
   };
   const handleUserIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputUserId = event.target.value;
-    const newValue = parseFloat(inputUserId);
+    const newValue = parseInt(inputUserId);
     setUserId(isNaN(newValue) ? null : newValue);
   };
   const handleBodyWeightChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const inputUserId = event.target.value;
-    const newValue = parseFloat(inputUserId);
+    const inputBodyWeight = event.target.value;
+    const newValue = parseFloat(inputBodyWeight);
     setBodyWeight(isNaN(newValue) ? null : newValue);
   };
   return (
@@ -30,14 +34,18 @@ const CreateBodyWeight = () => {
         <input
           type="number"
           value={userId == null ? "" : userId}
-          onChange={(e) => handleUserIdChange(e)}
+          onChange={(e) =>
+            handleIntUseStateSetterFromHTMLInputElement(e, setUserId)
+          }
           required
         />
         <label>BodyWeight Input</label>
         <input
           type="number"
           value={bodyWeight == null ? "" : bodyWeight}
-          onChange={(e) => handleBodyWeightChange(e)}
+          onChange={(e) =>
+            handleFloatUseStateSetterFromHTMLInputElement(e, setBodyWeight)
+          }
           step={0.01}
           required
         />

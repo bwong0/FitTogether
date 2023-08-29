@@ -32,6 +32,7 @@ const CalorieTrackingPage = () => {
             <ToggleButton
               value="Intake"
               style={{
+                fontFamily: "Quicksand",
                 backgroundColor: alignment === "Intake" ? "red" : "gray",
                 color: "white",
               }}
@@ -41,6 +42,7 @@ const CalorieTrackingPage = () => {
             <ToggleButton
               value="Exercise"
               style={{
+                fontFamily: "Quicksand",
                 backgroundColor: alignment === "Exercise" ? "green" : "gray",
                 color: "white",
               }}

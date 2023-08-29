@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-
-import "./ViewBodyWeight.css";
+import { useEffect, useState } from "react";
+import { getUserBodyWeightUrl } from "../../Resources/Url.js";
+import { convert24to12, splitTimeStamp } from "../../Resources/Types/DateYear";
 import BodyWeightList from "../BodyWeight/BodyWeight";
 import BodyWeights from "../../Resources/Types/BodyWeight";
-import { getUserBodyWeightUrl } from "../../Resources/Url.js";
-import getMonthDay, {
-  convert24to12,
-  splitTimeStamp,
-} from "../../Resources/Types/DateYear";
+import "./ViewBodyWeight.css";
 
 const ViewBodyWeight = (props: {
   userId: number;
