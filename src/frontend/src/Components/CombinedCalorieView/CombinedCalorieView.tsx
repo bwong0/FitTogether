@@ -15,6 +15,10 @@ const CombinedCalorieView = (props: {
   const combinedCalories = props.combinedCaloriesProp;
   return (
     <div className="combinedCalorie-list">
+      <div className="titleBanner-container">
+        <h2>{props.titleProp}</h2>
+      </div>
+
       <div className="intake-exercise-container">
         <div className="intakeValues">
           <h3>Intake:</h3>
@@ -33,8 +37,12 @@ const CombinedCalorieView = (props: {
         <div className="combinedCalorie-container" key={calorie.id}>
           <div className="display-combinedCalorie-continer">
             <h2>{calorie.twelveHour}</h2>
-            {calorie.type === "intake" && <p>{calorie.calories}</p>}
-            {calorie.type === "exercise" && <p>{calorie.calories}</p>}
+            {calorie.type === "intake" && (
+              <p style={{ color: "red" }}>{calorie.calories}</p>
+            )}
+            {calorie.type === "exercise" && (
+              <p style={{ color: "green" }}>{calorie.calories}</p>
+            )}
           </div>
         </div>
       ))}

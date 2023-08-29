@@ -100,9 +100,9 @@ const CreateIntakeCalorie = () => {
           step={0.1}
           required
         />
-        <label>Intake Type</label>
+        <label>Meal</label>
         <input
-          type="number"
+          type="text"
           value={intakeType}
           onChange={(e) =>
             handleStringUseStateSetterFromHTMLInputElement(e, setIntakeType)

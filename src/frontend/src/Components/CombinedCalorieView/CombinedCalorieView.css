@@ -1,12 +1,12 @@
 .intake-exercise-container {
   margin: auto;
   display: flex;
-  width: 100%;
+  width: 80%;
 }
 
 .intakeValues {
   flex: 1;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .intakeValues h3 {
@@ -15,9 +15,15 @@
 
 .exerciseValues {
   flex: 1;
-  margin-left: 0px;
+  /* margin-left: 0px; */
 }
 
 .exerciseValues h3 {
   color: green;
+}
+
+.titleBanner-container {
+  margin: auto;
+  max-width: fit-content;
+  min-width: 120px;
 }

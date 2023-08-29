@@ -57,9 +57,9 @@ const CreateExerciseCalorie = () => {
           step={0.01}
           required
         />
-        <label>Exercise Type</label>
+        <label>Exercise</label>
         <input
-          type="number"
+          type="text"
           value={exerciseType}
           onChange={(e) =>
             handleStringUseStateSetterFromHTMLInputElement(e, setExerciseType)

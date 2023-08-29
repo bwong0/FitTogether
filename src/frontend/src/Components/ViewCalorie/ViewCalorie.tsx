@@ -13,10 +13,6 @@ const ViewCalorie = (props: {
   date: string;
   monthDate: string;
 }) => {
-  const [intakeCalories, setIntakeCalories] = useState<CombinedCalories[]>([]);
-  const [exerciseCalories, setExerciseCalories] = useState<CombinedCalories[]>(
-    []
-  );
   const [combinedCalories, setCombinedCalories] = useState<CombinedCalories[]>(
     []
   );
@@ -34,29 +30,38 @@ const ViewCalorie = (props: {
   const [exerciseValues, setexerciseValues] = useState<{ calorie: number }>({
     calorie: 0,
   });
-  const [isPendingIntake, setIsPendingIntake] = useState(true);
-  const [errorStateIntake, setErrorStateIntake] = useState(null);
-  const [isPendingExercise, setIsPendingExercise] = useState(true);
-  const [errorStateExercise, setErrorStateExercise] = useState(null);
+  const [isPending, setIsPending] = useState(true);
+  const [errorState, setErrorState] = useState(null);
   useEffect(() => {
     const abortCont = new AbortController();
+    const signal = abortCont.signal;
 
-    fetch(getUserIntakeCalorieUrl(props.userId, props.date, ""), {
-      signal: abortCont.signal,
-    })
-      .then((res) => {
-        if (res.ok !== true) {
-          throw Error("Fetching Error");
-        }
-        return res.json();
-      })
+    const preIntakeCalories = fetch(
+      getUserIntakeCalorieUrl(props.userId, props.date, ""),
+      { signal }
+    );
+    const preExerciseCalories = fetch(
+      getUserExerciseCalorieUrl(props.userId, props.date, ""),
+      { signal }
+    );
+
+    Promise.all([preIntakeCalories, preExerciseCalories])
+      .then((responses) =>
+        Promise.all(
+          responses.map((response) => {
+            if (response.ok !== true) {
+              throw Error("Fetching Error");
+            }
+            return response.json();
+          })
+        )
+      )
       .then((data) => {
-        const preIntakeCalories: CombinedCalories[] = data;
+        const preIntakeCalories: CombinedCalories[] = data[0];
         let calorieIntakeTotal = 0;
         let proteinIntakeTotal = 0;
         let carbohydrateIntakeTotal = 0;
         let fatIntakeTotal = 0;
-
         preIntakeCalories.forEach((intake) => {
           intake.timestampParts = splitTimeStamp(intake.timestamp);
           intake.twelveHour = convert24to12(intake.timestampParts[1]);
@@ -72,65 +77,40 @@ const ViewCalorie = (props: {
           carbohydrate: carbohydrateIntakeTotal,
           fat: fatIntakeTotal,
         });
-        setIntakeCalories(preIntakeCalories);
-        setIsPendingIntake(false);
-        setErrorStateIntake(null);
-      })
-      .catch((err) => {
-        if (err.name === "AbortError") {
-          console.log("Intake Fetch Aborted");
-        } else {
-          setIsPendingIntake(false);
-          setErrorStateIntake(err.message);
-        }
-      });
-    fetch(getUserExerciseCalorieUrl(props.userId, props.date, ""), {
-      signal: abortCont.signal,
-    })
-      .then((res) => {
-        if (res.ok !== true) {
-          throw Error("Fetching Error");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        const preExerciseCalories: CombinedCalories[] = data;
+        const preExerciseCalories: CombinedCalories[] = data[1];
         let calorieExerciseTotal = 0;
-
         preExerciseCalories.forEach((exercise) => {
           exercise.timestampParts = splitTimeStamp(exercise.timestamp);
           exercise.twelveHour = convert24to12(exercise.timestampParts[1]);
           calorieExerciseTotal += exercise.calories;
           exercise.type = "exercise";
         });
+        console.log(preIntakeCalories);
+        console.log(preExerciseCalories);
         setexerciseValues({ calorie: calorieExerciseTotal });
-        setExerciseCalories(preExerciseCalories);
-        setIsPendingExercise(false);
-        setErrorStateExercise(null);
+        setIsPending(false);
+        setErrorState(null);
+        console.log("merging");
+        const preCombinedCalories: CombinedCalories[] = [
+          ...preIntakeCalories,
+          ...preExerciseCalories,
+        ];
+        preCombinedCalories.sort((a, b) =>
+          a.twelveHour.localeCompare(b.twelveHour)
+        );
+        setCombinedCalories(preCombinedCalories);
       })
       .catch((err) => {
         if (err.name === "AbortError") {
-          console.log("Exercise Fetch Aborted");
+          console.log("Fetch Abort");
         } else {
-          setIsPendingExercise(false);
-          setErrorStateExercise(err.message);
+          setIsPending(false);
+          setErrorState(err.message);
         }
       });
-    const preCombinedCalories: CombinedCalories[] = [
-      ...intakeCalories,
-      ...exerciseCalories,
-    ];
-    preCombinedCalories.sort((a, b) =>
-      a.twelveHour.localeCompare(b.twelveHour)
-    );
-    setCombinedCalories(preCombinedCalories);
   }, []);
   return (
     <div className="ViewCalorie">
-      {errorStateIntake && <div>{errorStateIntake}</div>}
-      {errorStateExercise && <div>{errorStateExercise}</div>}
-      {isPendingIntake && <div>Intake List Is Loading...</div>}
-      {isPendingExercise && <div>Exercies List Is Loading...</div>}
       {combinedCalories && (
         <CombinedCaloriesView
           combinedCaloriesProp={combinedCalories}
@@ -139,6 +119,8 @@ const ViewCalorie = (props: {
           exeriseProp={exerciseValues}
         />
       )}
+      {errorState && <div>Error State: {errorState}</div>}
+      {isPending && <div>List Is Loading...</div>}
     </div>
   );
 };

@@ -9,8 +9,8 @@ class NavBar extends Component {
         <h1>FitTogether</h1>
         <div className="links">
           <Link to="/">Progress</Link>
-          <Link to="/bodyweight">Body Weight</Link>
-          <Link to="/calorietracking">Calorie Tracking</Link>
+          <Link to="/bodyweight">BodyWeight</Link>
+          <Link to="/calorietracking">Calories</Link>
           <Link to="/friends">Friends</Link>
           <Link to="/settings">Settings</Link>
         </div>
