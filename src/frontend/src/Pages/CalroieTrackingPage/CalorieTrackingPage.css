@@ -1,7 +1,7 @@
 .CalorieTrackingPage-Container {
   margin: auto;
   display: flex;
-  width: 100%;
+  width: 90%;
 }
 
 .Create-Calorie-Container {
@@ -16,4 +16,9 @@
 
 .toggle-container {
   padding: 20px;
+}
+
+.create-contianer {
+  width: 75%;
+  margin: auto;
 }

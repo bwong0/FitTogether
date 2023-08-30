@@ -23,7 +23,7 @@ const CalorieTrackingPage = () => {
       <div className="Create-Calorie-Container">
         <div className="toggle-container">
           <ToggleButtonGroup
-            color="primary"
+            fullWidth
             value={alignment}
             exclusive
             onChange={handleChange}

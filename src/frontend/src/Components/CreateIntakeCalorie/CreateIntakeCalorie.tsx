@@ -107,7 +107,6 @@ const CreateIntakeCalorie = () => {
           onChange={(e) =>
             handleStringUseStateSetterFromHTMLInputElement(e, setIntakeType)
           }
-          required
         />
         <button type="submit" onClick={submitIntakeCalorie}>
           Add Entry

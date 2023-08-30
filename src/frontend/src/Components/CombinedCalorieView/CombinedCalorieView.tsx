@@ -1,4 +1,6 @@
 import CombinedCalories from "../../Resources/Types/CombinedCalorie";
+import ExerciseCalorieComponent from "../ExerciseCalorieComponent/ExerciseCalorieComponent";
+import IntakeCalorieComponent from "../IntakeCalorieComponent/IntakeCalorieComponent";
 import "./CombinedCalorieView.css";
 
 const CombinedCalorieView = (props: {
@@ -23,9 +25,9 @@ const CombinedCalorieView = (props: {
         <div className="intakeValues">
           <h3>Intake:</h3>
           <p>Calories: {props.intakeProp.calorie}</p>
-          <p>Proteins: {props.intakeProp.protein}</p>
-          <p>Carbohydrates: {props.intakeProp.carbohydrate}</p>
-          <p>Fats: {props.intakeProp.fat}</p>
+          <p>Proteins: {props.intakeProp.protein}g</p>
+          <p>Carbohydrates: {props.intakeProp.carbohydrate}g</p>
+          <p>Fats: {props.intakeProp.fat}g</p>
         </div>
         <div className="exerciseValues">
           <h3>Exercise:</h3>
@@ -36,12 +38,22 @@ const CombinedCalorieView = (props: {
       {combinedCalories.map((calorie) => (
         <div className="combinedCalorie-container" key={calorie.id}>
           <div className="display-combinedCalorie-continer">
-            <h2>{calorie.twelveHour}</h2>
             {calorie.type === "intake" && (
-              <p style={{ color: "red" }}>{calorie.calories}</p>
+              <IntakeCalorieComponent
+                timestamp={calorie.twelveHour}
+                calorie={calorie.calories}
+                meal={calorie.meal}
+                carbohydrate={calorie.carbohydrates}
+                fat={calorie.fats}
+                protein={calorie.proteins}
+              />
             )}
             {calorie.type === "exercise" && (
-              <p style={{ color: "green" }}>{calorie.calories}</p>
+              <ExerciseCalorieComponent
+                timestamp={calorie.twelveHour}
+                calories={calorie.calories}
+                exerciseType={calorie.exerciseType}
+              />
             )}
           </div>
         </div>
