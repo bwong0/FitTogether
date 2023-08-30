@@ -96,7 +96,7 @@ const ViewCalorie = (props: {
           ...preExerciseCalories,
         ];
         preCombinedCalories.sort((a, b) =>
-          a.twelveHour.localeCompare(b.twelveHour)
+          b.twelveHour.localeCompare(a.twelveHour)
         );
         setCombinedCalories(preCombinedCalories);
       })

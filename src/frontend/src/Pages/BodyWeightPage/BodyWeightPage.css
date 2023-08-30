@@ -1,7 +1,7 @@
 .BodyWeightPage-Container {
   margin: auto;
   display: flex;
-  width: 100%;
+  width: 90%;
 }
 
 .Create-BodyWeight-Container {
@@ -12,4 +12,9 @@
 .View-BodyWeight-Container {
   flex: 1;
   margin-left: 0px;
+}
+
+.Create-BodyWeight-Container {
+  width: 75%;
+  margin: auto;
 }
